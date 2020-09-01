@@ -509,6 +509,12 @@ YamahaZone.prototype = {
         });
       }.bind(this));
 
+    setInterval( () => {
+      //force update of on/off-state
+      //getValue forces to get the latest non-chached value and triggers an update event if there is any change
+      zoneService.getCharacteristic(Characteristic.Active).getValue();
+    }, 15000);
+
     // Populate ActiveIdentifier with current input selection
 
     yamaha.getBasicInfo(that.zone).then(function(basicInfo) {
